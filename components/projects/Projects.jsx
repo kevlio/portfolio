@@ -21,19 +21,9 @@ function Projects() {
   const [featuredRepos, setFeaturedRepos] = useState([]);
   const [topic, setTopic] = useState("featured");
 
-  const getRepos = async () => {
-    const result = await fetchRepos();
-    setRepos(result);
-  };
-
   useEffect(() => {
     getRepos();
   }, []);
-
-  useEffect(() => {
-    const filteredFeaturedRepos = filterRepos(repos, "featured");
-    setFeaturedRepos(filteredFeaturedRepos);
-  }, [repos]);
 
   useEffect(() => {
     if (topic.length === 0) {
@@ -42,13 +32,18 @@ function Projects() {
     }
   }, [topic]);
 
+  const getRepos = async () => {
+    const result = await fetchRepos();
+    setRepos(result);
+    const filteredFeaturedRepos = filterRepos(result, topic);
+    setFeaturedRepos(filteredFeaturedRepos);
+  };
+
   const filterByTopic = async (topic) => {
     setTopic(topic);
     const filteredFeaturedRepos = filterRepos(repos, topic);
     setFeaturedRepos(filteredFeaturedRepos);
   };
-
-  console.log(topic);
 
   return (
     <AnimatedPage>
@@ -69,8 +64,9 @@ function Projects() {
             <Input
               placeholder="Search By Topic..."
               onChange={(e) => filterByTopic(e.target.value)}
-              width="50%"
+              width="70%"
               textColor="blue"
+              pl="1em"
             />
           </Flex>
           <Swiper

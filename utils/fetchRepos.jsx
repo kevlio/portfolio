@@ -3,6 +3,7 @@ import axios from "axios";
 const fetchRepos = async () => {
   const { data } = await axios.get("https://api.github.com/users/kevlio/repos");
   return data;
+  // Try catch
 };
 
 const filterRepos = (repos, topic) => {
@@ -11,6 +12,7 @@ const filterRepos = (repos, topic) => {
     repo.topics.includes(topicLowerCase)
   );
   const mappedRepos = filteredRepos.map((repo) => {
+    // Try url 404
     const url = `https://raw.githubusercontent.com/kevlio/${repo.name}/main/${repo.name}.png`;
     const repoObject = {
       name: repo["name"],
