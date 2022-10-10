@@ -1,12 +1,18 @@
 import axios from "axios";
 
 const fetchRepos = async () => {
-  const { data } = await axios.get("https://api.github.com/users/kevlio/repos");
-  return data;
-  // Try catch
+  try {
+    const { data } = await axios.get(
+      "https://api.github.com/users/kevlio/repos"
+    );
+    return data;
+  } catch (error) {
+    return false;
+  }
 };
 
 const filterRepos = (repos, topic) => {
+  if (!repos) return;
   const topicLowerCase = topic.toLowerCase();
   const filteredRepos = repos.filter((repo) =>
     repo.topics.includes(topicLowerCase)
@@ -29,3 +35,14 @@ const filterRepos = (repos, topic) => {
 };
 
 export { fetchRepos, filterRepos };
+
+// const fetchImg = async (name) => {
+//   const url = `https://raw.githubusercontent.com/kevlio/${name}/main/${name}.png`;
+//   try {
+//     const { data } = await axios.get(url);
+//     console.log(data);
+//     return url;
+//   } catch (error) {
+//     return false;
+//   }
+// };

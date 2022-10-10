@@ -81,20 +81,21 @@ function Projects() {
             navigation={isBrowser && true}
             className="mySwiper"
           >
-            {featuredRepos.map((repo) => (
-              <SwiperSlide key={repo.id}>
-                <ProjectCard
-                  topic={topic}
-                  name={repo.name}
-                  description={repo.description}
-                  topics={repo.topics}
-                  date={repo.created}
-                  gh_url={repo.url}
-                  homepage={repo.homepage}
-                  img={repo.img}
-                />
-              </SwiperSlide>
-            ))}
+            {featuredRepos &&
+              featuredRepos.map((repo) => (
+                <SwiperSlide key={repo.id}>
+                  <ProjectCard
+                    topic={topic}
+                    name={repo.name}
+                    description={repo.description}
+                    topics={repo.topics}
+                    date={repo.created}
+                    gh_url={repo.url}
+                    homepage={repo.homepage}
+                    img={repo.img}
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </Box>
       </Center>

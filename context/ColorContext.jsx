@@ -1,8 +1,9 @@
-import React from "react";
+import React, { createContext } from "react";
 
-export const ColorContext = React.createContext();
+export const ColorContext = createContext();
 
-export const themeCSS = {
+export function ColorProvider({ children }) {
+  const themeCSS = {
     colors: {
       white: "",
       pink: "#ff006b",
@@ -11,3 +12,14 @@ export const themeCSS = {
       green: "#48bb78",
     },
   };
+
+  const providerValue = {
+    themeCSS,
+  };
+
+  return (
+    <ColorContext.Provider value={providerValue}>
+      {children}
+    </ColorContext.Provider>
+  );
+}

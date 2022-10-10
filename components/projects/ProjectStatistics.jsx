@@ -9,9 +9,10 @@ function ProjectStatistics({ repos, topic }) {
   });
 
   function repoCounter() {
+    if (!repos) return;
     setCounter((prevValue) => ({ ...prevValue, repo: repos.length }));
   }
-  
+
   useEffect(() => {
     repoCounter();
   }, [repos]);
