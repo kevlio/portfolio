@@ -40,7 +40,7 @@ function Introduction() {
           md="1.6rem"
           lg="2rem"
           sentence="value through Technology."
-          interval={1000}
+          interval={1500}
         />
         <DynamicText
           color="pink"
@@ -49,7 +49,7 @@ function Introduction() {
           md="1.6rem"
           lg="2rem"
           sentence="Background in Civil Engineering,"
-          interval={2000}
+          interval={2500}
         />
         <DynamicText
           color="pink"
@@ -58,7 +58,7 @@ function Introduction() {
           md="1.6rem"
           lg="2rem"
           sentence="by and large as a Project"
-          interval={2500}
+          interval={3500}
         />
         <DynamicText
           color="pink"
@@ -67,7 +67,7 @@ function Introduction() {
           md="1rem"
           lg="2rem"
           sentence="Management Consultant."
-          interval={3000}
+          interval={4000}
         />
       </Flex>
       <AnimatedSwipe delay={5} duration={3} color="purple" />

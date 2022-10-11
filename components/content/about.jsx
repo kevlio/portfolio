@@ -148,6 +148,8 @@ const personalInterests = [
   `'Bachata'`,
   `'Capybaras'`,
   `'Finance'`,
+  `'Seinfeld'`,
+  `'Startups'`,
   `'Pancakes'`,
   `'Existentialism'`,
   `'What's web 3.0'`,

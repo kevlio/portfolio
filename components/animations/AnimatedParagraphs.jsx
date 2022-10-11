@@ -35,6 +35,10 @@ const AnimatedParagraph = ({ text, color, base }) => {
     },
   };
 
+  // Try
+  // justify-content: space-evenly;
+  // flex-wrap: wrap;
+
   return (
     <Flex
       maxW="max-content"

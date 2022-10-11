@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchRepos, filterRepos } from "../../utils/fetchRepos";
+import { fetchRepos, filterRepos, fetchImages } from "../../utils/fetchRepos";
 
 import { isBrowser } from "react-device-detect";
 
@@ -39,7 +39,7 @@ function Projects() {
     setFeaturedRepos(filteredFeaturedRepos);
   };
 
-  const filterByTopic = async (topic) => {
+  const filterByTopic = (topic) => {
     setTopic(topic);
     const filteredFeaturedRepos = filterRepos(repos, topic);
     setFeaturedRepos(filteredFeaturedRepos);
@@ -82,7 +82,7 @@ function Projects() {
             className="mySwiper"
           >
             {featuredRepos &&
-              featuredRepos.map((repo) => (
+              featuredRepos.map((repo, index) => (
                 <SwiperSlide key={repo.id}>
                   <ProjectCard
                     topic={topic}
