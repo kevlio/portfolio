@@ -1,38 +1,14 @@
 import axios from "axios";
 
-let images = [];
-
 const fetchRepos = async () => {
   try {
     const { data } = await axios.get(
       "https://api.github.com/users/kevlio/repos"
     );
-    await fetchImages(data);
-    const combined = await data.map(function (item, index) {
-      return { ...item, image: images[index] };
-    });
-    return combined;
+    return data;
   } catch (error) {
     throw new Error();
   }
-};
-
-// Find a nicer way to do this...
-// Maybe much cleaner just do do the image on error...
-const fetchImages = async (repos) => {
-  repos
-    .map((repo) => {
-      return repo.name;
-    })
-    .forEach(async (name) => {
-      let url = `https://raw.githubusercontent.com/kevlio/${name}/main/${name}.png`;
-      try {
-        const res = await axios.get(url);
-        if (res.request.status === 200) images.push(url);
-      } catch (error) {
-        images.push(null);
-      }
-    });
 };
 
 const filterRepos = (repos, topic) => {
@@ -47,7 +23,7 @@ const filterRepos = (repos, topic) => {
         created: repo.created_at,
         url: repo.html_url,
         homepage: repo.homepage,
-        img: repo.image,
+        img: `https://raw.githubusercontent.com/kevlio/${repo.name}/main/${repo.name}.png`,
       };
       return { ...repoObject };
     });
@@ -55,4 +31,23 @@ const filterRepos = (repos, topic) => {
   return filteredRepos;
 };
 
-export { fetchRepos, filterRepos, fetchImages };
+// const images = []
+// Find a nicer way to do this...
+// Maybe much cleaner just do do the image
+// const fetchImages = async (repos) => {
+//   repos
+//     .map((repo) => {
+//       return repo.name;
+//     })
+//     .forEach(async (name) => {
+//       let url = `https://raw.githubusercontent.com/kevlio/${name}/main/${name}.png`;
+//       try {
+//         const res = await axios.get(url);
+//         if (res.request.status === 200) images.push(url);
+//       } catch (error) {
+//         images.push(null);
+//       }
+//     });
+// };
+
+export { fetchRepos, filterRepos };
