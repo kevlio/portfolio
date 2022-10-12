@@ -72,7 +72,9 @@ function Projects() {
               textTransform="uppercase"
             >
               {topics.map((topic) => (
-                <option value={topic}>{topic}</option>
+                <option key={topic} value={topic}>
+                  {topic}
+                </option>
               ))}
             </Select>
           </Flex>
@@ -90,9 +92,8 @@ function Projects() {
             className="mySwiper"
           >
             {featuredRepos.map((repo) => (
-              <SwiperSlide>
+              <SwiperSlide key={repo.id}>
                 <ProjectCard
-                  key={repo.id}
                   topic={topic}
                   name={repo.name}
                   description={repo.description}
