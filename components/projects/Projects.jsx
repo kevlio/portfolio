@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { fetchRepos, filterRepos, fetchImages } from "../../utils/fetchRepos";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  fetchRepos,
+  filterRepos,
+  availableTopics,
+} from "../../utils/fetchRepos";
 
 import { isBrowser } from "react-device-detect";
 
@@ -14,29 +18,29 @@ import ProjectCard from "./ProjectCard";
 import ProjectStatistics from "./ProjectStatistics";
 
 import AnimatedPage from "../animations/AnimatedPage";
-import { Box, Center, Input, Flex } from "@chakra-ui/react";
+import { Box, Center, Input, Flex, Select } from "@chakra-ui/react";
 
 function Projects() {
   const [repos, setRepos] = useState([]);
   const [featuredRepos, setFeaturedRepos] = useState([]);
   const [topic, setTopic] = useState("featured");
+  const [topics, setTopics] = useState([]);
+  // const selectRef = useRef(0);
 
   useEffect(() => {
     getRepos();
   }, []);
 
   useEffect(() => {
-    if (topic.length === 0) {
-      setTopic("featured");
-      filterByTopic("featured");
-    }
-  }, [topic]);
+    const topicSelection = availableTopics(repos);
+    setTopics(topicSelection);
+    const filteredFeaturedRepos = filterRepos(repos, topic);
+    setFeaturedRepos(filteredFeaturedRepos);
+  }, [repos]);
 
   const getRepos = async () => {
     const result = await fetchRepos();
     setRepos(result);
-    const filteredFeaturedRepos = filterRepos(result, topic);
-    setFeaturedRepos(filteredFeaturedRepos);
   };
 
   const filterByTopic = (topic) => {
@@ -61,14 +65,18 @@ function Projects() {
               <ProjectStatistics repos={repos} topic="public" />
               <ProjectStatistics repos={featuredRepos} topic={topic} />
             </Flex>
-            <Input
-              placeholder="Search By Topic..."
+            <Select
+              width="60%"
               onChange={(e) => filterByTopic(e.target.value)}
-              width="70%"
-              textColor="blue"
-              pl="1em"
-            />
+              value={topic}
+              textTransform="uppercase"
+            >
+              {topics.map((topic) => (
+                <option value={topic}>{topic}</option>
+              ))}
+            </Select>
           </Flex>
+
           <Swiper
             style={{ maxWidth: "600px" }}
             pagination={{
@@ -81,21 +89,21 @@ function Projects() {
             navigation={isBrowser && true}
             className="mySwiper"
           >
-            {featuredRepos &&
-              featuredRepos.map((repo, index) => (
-                <SwiperSlide key={repo.id}>
-                  <ProjectCard
-                    topic={topic}
-                    name={repo.name}
-                    description={repo.description}
-                    topics={repo.topics}
-                    date={repo.created}
-                    gh_url={repo.url}
-                    homepage={repo.homepage}
-                    img={repo.img}
-                  />
-                </SwiperSlide>
-              ))}
+            {featuredRepos.map((repo) => (
+              <SwiperSlide>
+                <ProjectCard
+                  key={repo.id}
+                  topic={topic}
+                  name={repo.name}
+                  description={repo.description}
+                  topics={repo.topics}
+                  date={repo.created}
+                  gh_url={repo.url}
+                  homepage={repo.homepage}
+                  img={repo.img}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Box>
       </Center>

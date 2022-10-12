@@ -1,19 +1,8 @@
 import React from "react";
-
 import AnimatedSwipe from "../animations/AnimatedSwipe";
-
 import { AiFillGithub } from "react-icons/ai";
 import { SiNetlify, SiHeroku } from "react-icons/si";
-
-import {
-  Heading,
-  Text,
-  Link,
-  Flex,
-  SimpleGrid,
-  Img,
-  Box,
-} from "@chakra-ui/react";
+import { Heading, Text, Link, Flex, SimpleGrid, Img } from "@chakra-ui/react";
 
 function ProjectCard({
   key,
@@ -72,7 +61,7 @@ function ProjectCard({
         >
           {topics.map((topic) => (
             <Text
-              key={name}
+              key={topic}
               color={"blue"}
               textTransform={"uppercase"}
               fontWeight={800}

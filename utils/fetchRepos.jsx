@@ -31,23 +31,16 @@ const filterRepos = (repos, topic) => {
   return filteredRepos;
 };
 
-// const images = []
-// Find a nicer way to do this...
-// Maybe much cleaner just do do the image
-// const fetchImages = async (repos) => {
-//   repos
-//     .map((repo) => {
-//       return repo.name;
-//     })
-//     .forEach(async (name) => {
-//       let url = `https://raw.githubusercontent.com/kevlio/${name}/main/${name}.png`;
-//       try {
-//         const res = await axios.get(url);
-//         if (res.request.status === 200) images.push(url);
-//       } catch (error) {
-//         images.push(null);
-//       }
-//     });
-// };
+const availableTopics = (repos) => {
+  const topics = [];
+  repos.map((repo) =>
+    repo.topics.forEach((topic) => {
+      if (!topics.includes(topic)) {
+        topics.push(topic);
+      }
+    })
+  );
+  return topics;
+};
 
-export { fetchRepos, filterRepos };
+export { fetchRepos, filterRepos, availableTopics };
